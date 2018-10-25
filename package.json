@@ -2,9 +2,11 @@
   "name": "ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://b-sim/github.io/net-app.git",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "axios": "^0.18.0",
