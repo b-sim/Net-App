@@ -1,15 +1,15 @@
 <template>
           <v-container fluid>            
             <v-layout align-center justify-center>
-              <v-flex v-if="!$store.state.isUserLoggedIn" xs12 sm10 md8>
+              <v-flex v-if="!$store.state.isUserAdmin" xs12 sm10 md8>
                 <v-alert
                   :value="true"
                   type="error"
                 >
-                  You need to be logged in.
+                  You need to be an administrator.
                 </v-alert>
               </v-flex>
-              <v-flex v-if="$store.state.isUserLoggedIn" xs12 sm10 md8>
+              <v-flex v-if="$store.state.isUserAdmin" xs12 sm10 md8>
                   <v-toolbar dark color="primary">
                     <v-toolbar-title>Registre Clients</v-toolbar-title>
                     <v-spacer></v-spacer>
@@ -33,21 +33,22 @@
                       :rows-per-page-items="rowsPerPageItems"
                       :headers="headers"
                       :items="clients"
+                      item-key="_id"
                     >
                       <template slot="items" slot-scope="props">
-                        <tr @click='expand'>
-                        <td class="text-xs-left">{{ props.item.nom }}</td>
-                        <td class="text-xs-right">{{ props.item.date }}</td>
-                        <td class="text-xs-right">{{ props.item.email }}</td>
-                        <td class="text-xs-right">{{ props.item.forfait }}</td>
-                        <td class="text-xs-right">{{ props.item.domaine }}</td>
+                        <tr @click="props.expanded = !props.expanded; props.isActive = !props.isActive; " >
+                        <td class="text-xs-left">{{ props.item.personnel.nom }}</td>
+                        <td class="text-xs-right">{{ props.item.personnel.prenom }}</td>
+                        <td class="text-xs-right">{{ props.item.personnel.telephone }}</td>
+                        <td class="text-xs-right">{{ props.item.personnel.email }}</td>
+                        <td class="text-xs-right">{{ props.item.vente.nomVendeur }}</td>
                         </tr>
                       </template>
                       <v-alert slot="no-results" :value="true" color="error" icon="warning">
-                        Your search for "{{ search }}" found no results.
+                        La recherche pour "{{ search }}" ne donne aucun résultat.
                       </v-alert>
                       <template slot="expand" slot-scope="props">
-                        <v-card flat color="secondary">
+                        <v-card flat color="light-blue lighten-5">
                           <v-card-text>Infos supplémentaires</v-card-text>
                         </v-card>
                       </template>
@@ -60,47 +61,40 @@
 </template>
 
 <script>
-import ClientsService from '@/services/ClientsService'
+import ClientsService from "@/services/ClientsService";
 export default {
   data() {
     return {
-      
       search: "",
       headers: [
-        {
-          text: 'Nom',
-          align: 'left',
-          sortable: true,
-          value: 'nom'
-        },
-        { text: 'Date', align: 'right', value: 'date' },
-        { text: 'Email', align: 'right', value: 'email' },
-        { text: 'Forfait', align: 'right', value: 'forfait' },
-        { text: 'Domaine', align: 'right', value: 'domaine' }
+        { text: "Nom", align: "left", sortable: true, value: "personnel.nom" },
+        { text: "Job", align: "right", value: "personnel.prenom" },
+        { text: "Rue", align: "right", value: "personnel.telephone" },
+        { text: "Forfait", align: "right", value: "personnel.email" },
+        { text: "Nom du Vendeur", align: "right", value: "vente.nomVendeur" }
       ],
       clients: null,
-      rowsPerPageItems: [{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}, 10, 20],
+      rowsPerPageItems: [
+        { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 },
+        10,
+        20
+      ],
       pagination: {
         rowsPerPage: 20
-      }
-    }
+      },
+      isActive: false
+    };
   },
-  async mounted () {
-    this.clients = (await ClientsService.index()).data
-  },
-  methods: {
-    expand () {
-      console.log(this)
-    }
+  async mounted() {
+    this.clients = (await ClientsService.indexMongo()).data;
   },
   name: "ViewClients"
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
-.isActive{
-  background-color: red;
+.red {
+  background-color: red !important;
 }
 </style>

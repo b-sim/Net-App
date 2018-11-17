@@ -8,6 +8,16 @@ export default {
       }
     })
   },
+  indexMongo (search) {
+    return Api().get('mongoClients', {
+      params: {
+        search: search
+      }
+    })
+  },
+  postMongo (client) {
+    return Api().post('mongoClients', client)
+  },
   show (clientId) {
     return Api().get(`clients/${clientId}`)
   },

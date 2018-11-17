@@ -6,6 +6,7 @@ import Login from "./components/Login.vue";
 import Landing from "./components/Landing.vue";
 import AddClient from "./components/AddClient.vue";
 import ViewClients from "./components/ViewClients.vue";
+import VuexTest from "./components/VuexTest.vue";
 
 Vue.use(Router);
 
@@ -41,5 +42,10 @@ export default new Router({
       name: "viewClients",
       component: ViewClients
     },
+    {
+      path: "/vuexTest",
+      name: "vuexTest",
+      component: VuexTest
+    }
   ]
 });

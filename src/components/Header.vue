@@ -1,15 +1,16 @@
 <template>        
         <v-content>
           <v-toolbar class="headerToolbar" dark color ="primary">
-            <v-toolbar-side-icon></v-toolbar-side-icon>
+            <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
             <div class="titleWrapper pr-5" @click="navigateTo({name: 'home'})"><v-toolbar-title flat>NetBLB Client log</v-toolbar-title></div>
             <v-toolbar-items class="hidden-sm-and-down">
               <v-btn v-if="$store.state.isUserLoggedIn" @click="navigateTo({name: 'addClient'})" flat>Nouveau Client</v-btn>
-              <v-btn v-if="$store.state.isUserLoggedIn" @click="navigateTo({name: 'viewClients'})" flat>Registre</v-btn>
+              <v-btn v-if="$store.state.isUserLoggedIn && $store.state.isUserAdmin" @click="navigateTo({name: 'viewClients'})" flat>Registre</v-btn>
+              <!-- <v-btn @click="navigateTo({name: 'vuexTest'})" flat>Vuex</v-btn> -->
             </v-toolbar-items>
               <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
-              <v-btn v-if="!$store.state.isUserLoggedIn" @click="navigateTo({name: 'register'})" flat>Sign Up</v-btn>
+              <v-btn v-if="$store.state.isUserLoggedIn && $store.state.isUserAdmin" @click="navigateTo({name: 'register'})" flat>Nouvel Utilisateur</v-btn>
               <v-btn v-if="!$store.state.isUserLoggedIn" @click="navigateTo({name: 'login'})" flat>Sign In</v-btn>
               <v-btn v-if="$store.state.isUserLoggedIn" @click="logout" flat>Sign Out</v-btn>
             </v-toolbar-items>

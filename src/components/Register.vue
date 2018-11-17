@@ -1,7 +1,15 @@
 <template>
           <v-container fluid>            
             <v-layout align-center justify-center>
-              <v-flex xs12 sm8 md4>
+              <v-flex v-if="!$store.state.isUserAdmin" xs12 sm10 md8>
+                <v-alert
+                  :value="true"
+                  type="error"
+                >
+                  You need to be an administrator.
+                </v-alert>
+              </v-flex>
+              <v-flex v-if="$store.state.isUserAdmin" xs12 sm8 md4>
                 <v-slide-x-transition origin="top left 0">
                   <v-card class="elevation-7">
                     <v-toolbar dark color="primary">
