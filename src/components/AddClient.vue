@@ -340,34 +340,26 @@
                 >
                 <v-toolbar-title>Formulaire</v-toolbar-title>
                 <v-spacer></v-spacer>                      
-              </v-toolbar>
-              <v-subheader class="subheading font-weight-bold" inset> {{ nombreServicesVedette }} Services Vedettes</v-subheader>              
-                <v-flex xs6>
-                  <v-slider
-                    v-model="nombreServicesVedette"
-                    thumb-label
-                    always-dirty
-                    min="0"
-                    max="10"
-                    ticks
-                  >
-                    <v-icon
-                      slot="prepend"
-                      color="primary"
-                      @click="decrementVedette"
+              </v-toolbar>    
+                    <v-flex xs12>
+                      <v-divider></v-divider>
+                      <v-subheader class="subheading">Services</v-subheader>
+                    </v-flex>    
+                <v-layout align-center column>
+                  <v-flex xs2>
+                    <v-select
+                        label="Nombre de services vedettes"
+                        color="primary"
+                        v-model="nombreServicesVedette"
+                        :items="compteur"
+                        prepend-icon='mdi-minus'
+                        :prepend-icon-cb='decrementVedette'
+                        append-outer-icon='mdi-plus'
+                        :append-outer-icon-cb='incrementVedette'
                     >
-                      mdi-minus
-                    </v-icon>
-
-                    <v-icon
-                      slot="append"
-                      color="primary"
-                      @click="incrementVedette"
-                    >
-                      mdi-plus
-                    </v-icon>
-                  </v-slider>
-                </v-flex>
+                    </v-select>
+                  </v-flex>
+                </v-layout>
               <v-card-text v-for="(n, index) in nombreServicesVedette" :key="n">                     
                 <v-layout row wrap>
                   <v-flex d-flex xs12 sm6>
@@ -390,35 +382,24 @@
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
-              </v-card-text>         
-              
-              <v-subheader class="subheading font-weight-bold" inset> {{ nombreServicesTotal}} Services Total</v-subheader>              
-                <v-flex xs6>
-                  <v-slider
-                    v-model="nombreServicesTotal"
-                    thumb-label
-                    always-dirty
-                    min="0"
-                    max="30"
-                    ticks
-                  >
-                    <v-icon
-                      slot="prepend"
-                      color="primary"
-                      @click="decrementTotal"
+              </v-card-text>       
+                <v-layout align-center column>
+                  <v-flex xs4>
+                  </v-flex>
+                  <v-flex xs2>
+                    <v-select
+                        color="primary"
+                        label="Nombre de services total"
+                        v-model="nombreServicesTotal"
+                        :items="compteur"
+                        prepend-icon='mdi-minus'
+                        :prepend-icon-cb='decrementTotal'
+                        append-outer-icon='mdi-plus'
+                        :append-outer-icon-cb='incrementTotal'
                     >
-                      mdi-minus
-                    </v-icon>
-
-                    <v-icon
-                      slot="append"
-                      color="primary"
-                      @click="incrementTotal"
-                    >
-                      mdi-plus
-                    </v-icon>
-                  </v-slider>
-                </v-flex>
+                    </v-select>
+                  </v-flex>
+                </v-layout>
               <v-card-text v-for="(n, index) in nombreServicesTotal" :key="n">                     
                 <v-layout row wrap>
                   <v-flex d-flex xs12 sm6>
@@ -478,16 +459,19 @@
                       :counter="30"
                       :label="`Distinctions de lentreprise ` + (index + 1)"
                     ></v-text-field>
-                  </v-flex>            
+                  </v-flex>     
+                    <v-flex xs12>
+                      <v-divider></v-divider>
+                      <v-subheader class="subheading">Compteurs</v-subheader>
+                    </v-flex>         
                 <v-flex d-flex xs6 sm3>
-              <v-subheader class="subheading font-weight-bold" inset> {{ client.formulaire.age }} années d'expérience</v-subheader>  
+              <v-subheader class="subheading"> {{ client.formulaire.age }} années d'expérience</v-subheader>  
                 </v-flex>
-                <v-flex d-flex xs6 sm3>                
-                  <v-slider
+                <v-flex d-flex xs6 sm3>                 
+                  <v-text-field
+                    label="Années d'expérience"
                     v-model="client.formulaire.age"
-                    thumb-label
-                    min="0"
-                    max="100"
+                    :mask="digitMask"
                   >
                     <v-icon
                       slot="prepend"
@@ -497,6 +481,7 @@
                       mdi-minus
                     </v-icon>
 
+                  </v-text-field>
                     <v-icon
                       slot="append"
                       color="primary"
@@ -504,17 +489,15 @@
                     >
                       mdi-plus
                     </v-icon>
-                  </v-slider>
                 </v-flex>
                 <v-flex d-flex xs6 sm3>                
-              <v-subheader class="subheading font-weight-bold" inset> {{ client.formulaire.clientsSatisfaits }} clients satisfaits</v-subheader>     
+              <v-subheader class="subheading"> {{ client.formulaire.clientsSatisfaits }} clients satisfaits</v-subheader>     
                 </v-flex>
                 <v-flex d-flex xs6 sm3>                 
-                  <v-slider
+                  <v-text-field
+                    label="Clients satisfaits"
                     v-model="client.formulaire.clientsSatisfaits"
-                    thumb-label
-                    min="0"
-                    max="2000"
+                    :mask="digitMask"
                   >
                     <v-icon
                       slot="prepend"
@@ -524,6 +507,7 @@
                       mdi-minus
                     </v-icon>
 
+                  </v-text-field>
                     <v-icon
                       slot="append"
                       color="primary"
@@ -531,17 +515,15 @@
                     >
                       mdi-plus
                     </v-icon>
-                  </v-slider>
                 </v-flex>
                 <v-flex d-flex xs6 sm3>                
-              <v-subheader class="subheading font-weight-bold" inset> {{ client.formulaire.employes }} employés</v-subheader>      
+              <v-subheader class="subheading"> {{ client.formulaire.employes }} employés</v-subheader>      
                 </v-flex>
-                <v-flex d-flex xs6 sm3>                
-                  <v-slider
+                <v-flex d-flex xs6 sm3>                 
+                  <v-text-field
+                    label="Employés"
                     v-model="client.formulaire.employes"
-                    thumb-label
-                    min="0"
-                    max="300"
+                    :mask="digitMask"
                   >
                     <v-icon
                       slot="prepend"
@@ -551,6 +533,7 @@
                       mdi-minus
                     </v-icon>
 
+                  </v-text-field>
                     <v-icon
                       slot="append"
                       color="primary"
@@ -558,15 +541,6 @@
                     >
                       mdi-plus
                     </v-icon>
-                  </v-slider>
-                </v-flex>
-                <v-flex d-flex xs6 sm3>            
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.diversQuantite"
-                      :mask="digitMask"
-                      label="Quantité"
-                    ></v-text-field>     
                 </v-flex>
                 <v-flex d-flex xs6 sm3>                      
                   <v-text-field
@@ -575,6 +549,29 @@
                     :counter="20"
                     label="Nature de la quantité"
                   ></v-text-field>           
+                </v-flex>
+                <v-flex d-flex xs6 sm3>                 
+                  <v-text-field
+                    label="Divers"
+                    v-model="client.formulaire.diversQuantite"
+                    :mask="digitMask"
+                  >
+                    <v-icon
+                      slot="prepend"
+                      color="primary"
+                      @click="client.formulaire.diversQuantite--"
+                    >
+                      mdi-minus
+                    </v-icon>
+
+                  </v-text-field>
+                    <v-icon
+                      slot="append"
+                      color="primary"
+                      @click="client.formulaire.diversQuantite++"
+                    >
+                      mdi-plus
+                    </v-icon>
                 </v-flex>
                   <v-flex d-flex xs12 sm6>
                     <v-textarea
@@ -592,150 +589,126 @@
                       v-model="client.formulaire.equipement"
                     ></v-textarea>
                   </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.lundi"
-                      label="Lundi"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.mardi"
-                      label="Mardi"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.mercredi"
-                      label="Mercredi"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.jeudi"
-                      label="Jeudi"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.vendredi"
-                      label="Vendredi"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.samedi"
-                      label="Samedi"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.heuresOuverture.dimanche"
-                      label="Dimanche"
-                      required
-                    ></v-text-field>
+                    <v-flex xs12>
+                      <v-divider></v-divider>
+                      <v-subheader class="subheading">Heures d'ouverture</v-subheader>
+                    </v-flex>  
+                  <v-flex xs12>
+                    <v-layout justify-center>
+                      <v-flex d-flex xs12 sm6>
+                        <v-layout column>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.lundi"
+                                label="Lundi"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.mardi"
+                                label="Mardi"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.mercredi"
+                                label="Mercredi"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.jeudi"
+                                label="Jeudi"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.vendredi"
+                                label="Vendredi"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.samedi"
+                                label="Samedi"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 py-0>
+                              <v-text-field
+                                color="primary"
+                                v-model="client.formulaire.heuresOuverture.dimanche"
+                                label="Dimanche"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                        </v-layout>
+                      </v-flex>
+                    </v-layout>
                   </v-flex>
+                    <v-flex xs12>
+                      <v-divider></v-divider>
+                      <v-subheader class="subheading">Médias Sociaux</v-subheader>
+                    </v-flex>  
+                    <v-flex d-flex xs12 sm6>
+                      <v-text-field
+                        color="primary"
+                        v-model="client.formulaire.mediasSociaux.facebook"
+                        :counter="30"
+                        label="Facebook"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex d-flex xs12 sm6>
+                      <v-text-field
+                        color="primary"
+                        v-model="client.formulaire.mediasSociaux.linkedin"
+                        :counter="30"
+                        label="LinkedIn"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex d-flex xs12 sm6>
+                      <v-text-field
+                        color="primary"
+                        v-model="client.formulaire.mediasSociaux.youtube"
+                        :counter="30"
+                        label="Youtube"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex d-flex xs12 sm6>
+                      <v-text-field
+                        color="primary"
+                        v-model="client.formulaire.mediasSociaux.instagram"
+                        :counter="30"
+                        label="Instagram"
+                      ></v-text-field>
+                    </v-flex>
+
+{{ client.formulaire.accreditations }}
+              <v-card-text v-for="(n, index) in counterAccreditations" :key="n">                     
+                <v-layout row wrap>
                   <v-flex d-flex xs12 sm6>
                     <v-text-field
                       color="primary"
-                      v-model="client.formulaire.nom"
-                      :rules="nomRules"
                       :counter="20"
-                      label="Nom de l'entreprise"
-                      required
-                    ></v-text-field>
+                      :label="'Accréditation ' + n"
+                      v-model="client.formulaire.accreditations[index]"
+                    ></v-text-field> 
                   </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.domaine"
-                      :rules="domaineRules"
-                      :counter="30"
-                      label="Nom de domaine"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.nom"
-                      :rules="nomRules"
-                      :counter="20"
-                      label="Nom de l'entreprise"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.domaine"
-                      :rules="domaineRules"
-                      :counter="30"
-                      label="Nom de domaine"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.nom"
-                      :rules="nomRules"
-                      :counter="20"
-                      label="Nom de l'entreprise"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.domaine"
-                      :rules="domaineRules"
-                      :counter="30"
-                      label="Nom de domaine"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.nom"
-                      :rules="nomRules"
-                      :counter="20"
-                      label="Nom de l'entreprise"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.domaine"
-                      :rules="domaineRules"
-                      :counter="30"
-                      label="Nom de domaine"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.nom"
-                      :rules="nomRules"
-                      :counter="20"
-                      label="Nom de l'entreprise"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex d-flex xs12 sm6>
-                    <v-text-field
-                      color="primary"
-                      v-model="client.formulaire.domaine"
-                      :rules="domaineRules"
-                      :counter="30"
-                      label="Nom de domaine"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+                </v-layout> {{ index }}  {{ key }} 
+              </v-card-text>     
+
+
                 </v-layout>
               </v-card-text>
             </v-form>
@@ -799,7 +772,12 @@ export default {
           diversQuantite: null,
           equipement: [],
           expertise: "",
-          mediasSociaux: [],
+          mediasSociaux: {
+            facebook: "",
+            linkedin: "",
+            youtube: "",
+            instagram: ""
+          },
           heuresOuverture: {
             lundi: "",
             mardi: "",
@@ -810,7 +788,7 @@ export default {
             dimanche: ""
           },
           numeroLicence: "",
-          accreditations: [],
+          accreditations: [""],
           financement: "",
           notes: ""
         },
@@ -837,6 +815,7 @@ export default {
 
       nombreServicesVedette: 0,
       nombreServicesTotal: 0,
+      counterAccreditations: 1,
       menu: false,
       menu2: false,
       menu3: false,
@@ -864,7 +843,7 @@ export default {
         "Marie-Pier Boudreault"
       ],
       forfaits: ["Présence", "Cible", "Complet", "SEO", "Premium"],
-      nombreModules: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      compteur: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
       numerosModules: [
         "A1-A",
         "A1-B",
@@ -899,6 +878,7 @@ export default {
         "C3",
         "C4",
         "C5",
+        "D6",
         "CT1",
         "IL",
         "TA1",
@@ -911,7 +891,7 @@ export default {
 
       nomRules: [
         v => !!v || "Nom requis",
-        v => v.length <= 20 || "Doit avoir moins de 20 charactères"
+        v => v.length <= 40 || "Doit avoir moins de 20 charactères"
       ],
       sliderRules: [
         v =>
@@ -1002,7 +982,9 @@ export default {
   watch: {
     nombreServicesVedette: function(newValue, oldValue) {
       let difference = newValue - oldValue;
-      if (difference === 1) {
+      if (newValue < 0) {
+        this.nombreServicesVedette = 0;
+      } else if (difference === 1) {
         this.client.formulaire.servicesVedettes.push({ nom: "", detail: "" });
       } else if (difference === -1) {
         this.client.formulaire.servicesVedettes.pop();
@@ -1020,7 +1002,9 @@ export default {
 
     nombreServicesTotal: function(newValue, oldValue) {
       let difference = newValue - oldValue;
-      if (difference === 1) {
+      if (newValue < 0) {
+        this.nombreServicesTotal = 0;
+      } else if (difference === 1) {
         this.client.formulaire.servicesTotal.push({ nom: "", detail: "" });
       } else if (difference === -1) {
         this.client.formulaire.servicesTotal.pop();
@@ -1033,6 +1017,19 @@ export default {
         for (let i = 0; i < x; i++) {
           this.client.formulaire.servicesTotal.pop();
         }
+      }
+    },
+
+    "client.formulaire.accreditations[0]": function() {
+      if (
+        this.client.formulaire.accreditations[
+          this.client.formulaire.accreditations.length - 1
+        ] !== ""
+      ) {
+        this.client.formulaire.accreditations.push("modifié");
+        this.counterAccreditations++;
+        console.log(this.client.formulaire.accreditations);
+        console.log(counterAccreditations);
       }
     }
   },
@@ -1062,8 +1059,8 @@ export default {
     }
   },
   mounted() {
-    this.nombreServicesVedette = 3;
-    this.nombreServicesTotal = 3;
+    this.nombreServicesVedette = 1;
+    this.nombreServicesTotal = 1;
   },
   name: "AddUser"
 };
