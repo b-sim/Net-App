@@ -693,8 +693,40 @@
                         label="Instagram"
                       ></v-text-field>
                     </v-flex>
+                  <v-flex d-flex xs12 sm6>
+                    <v-textarea
+                      color="primary"
+                      :counter="100"
+                      label="Accréditations"
+                      v-model="client.formulaire.accreditations"
+                    ></v-textarea>
+                  </v-flex>
+                  <v-flex d-flex xs12 sm6>
+                    <v-textarea
+                      color="primary"
+                      :counter="100"
+                      label="Licence"
+                      v-model="client.formulaire.numeroLicence"
+                    ></v-textarea>
+                  </v-flex>
+                  <v-flex d-flex xs12 sm6>
+                    <v-textarea
+                      color="primary"
+                      :counter="100"
+                      label="Financement"
+                      v-model="client.formulaire.financement"
+                    ></v-textarea>
+                  </v-flex>
+                  <v-flex d-flex xs12 sm6>
+                    <v-textarea
+                      color="primary"
+                      :counter="100"
+                      label="Notes"
+                      v-model="client.formulaire.notes"
+                    ></v-textarea>
+                  </v-flex>
 
-{{ client.formulaire.accreditations }}
+<!--        
               <v-card-text v-for="(n, index) in counterAccreditations" :key="n">                     
                 <v-layout row wrap>
                   <v-flex d-flex xs12 sm6>
@@ -707,7 +739,7 @@
                   </v-flex>
                 </v-layout> {{ index }}  {{ key }} 
               </v-card-text>     
-
+-->
 
                 </v-layout>
               </v-card-text>
