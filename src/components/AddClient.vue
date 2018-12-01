@@ -878,6 +878,7 @@ export default {
         "C3",
         "C4",
         "C5",
+        "PC1",
         "D6",
         "CT1",
         "IL",
