@@ -68,9 +68,9 @@ export default {
       search: "",
       headers: [
         { text: "Nom", align: "left", sortable: true, value: "personnel.nom" },
-        { text: "Job", align: "right", value: "personnel.prenom" },
-        { text: "Rue", align: "right", value: "personnel.telephone" },
-        { text: "Forfait", align: "right", value: "personnel.email" },
+        { text: "Prénom", align: "right", value: "personnel.prenom" },
+        { text: "Téléphone", align: "right", value: "personnel.telephone" },
+        { text: "Email", align: "right", value: "personnel.email" },
         { text: "Nom du Vendeur", align: "right", value: "vente.nomVendeur" }
       ],
       clients: null,

@@ -23,7 +23,7 @@ export default new Vuex.Store({
         setUser (state, user) {
             state.user = user;
             if (user) {
-                if (user.email === 'administration@netblb.com') {
+                if (user.email === 'simon@mail.com') {
                     state.isUserAdmin = true;
                 } else {
                     state.isUserAdmin = false;
